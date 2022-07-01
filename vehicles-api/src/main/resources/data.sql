@@ -1,0 +1,1 @@
+INSERT INTO car(id, condition, lat, lon) VALUES (1, 'USED', 1.078, 3.903);
