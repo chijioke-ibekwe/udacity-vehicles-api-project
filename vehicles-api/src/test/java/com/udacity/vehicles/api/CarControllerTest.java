@@ -130,6 +130,26 @@ public class CarControllerTest {
     }
 
     /**
+     * Tests the update operation for a single car by ID.
+     * @throws Exception if the read operation for a single car fails
+     */
+    @Test
+    public void updateCar() throws Exception {
+        Car car = getCar();
+        car.setId(5L);
+
+        when(carService.save(any())).thenReturn(car);
+
+        mvc.perform(get("/cars/{id}", 5).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.details.body").value("sedan"))
+                .andExpect(jsonPath("$.details.model").value("Impala"))
+                .andExpect(jsonPath("$.details.manufacturer.name").value("Chevrolet"))
+                .andExpect(jsonPath("$.location.lat").value(40.73061))
+                .andExpect(jsonPath("$.location.lon").value(-73.935242));
+    }
+
+    /**
      * Tests the deletion of a single car by ID.
      * @throws Exception if the delete operation of a vehicle fails
      */
